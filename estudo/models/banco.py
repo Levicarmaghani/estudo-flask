@@ -1,0 +1,25 @@
+from estudo import db
+from datetime import datetime
+
+# Minha classe contato
+class Contato(db.Model):
+
+    # Atributos
+    id = db.Column(db.Integer, primary_key=True)
+    data_envio = db.Column(db.DateTime, default=datetime.utcnow())
+    nome = db.Column(db.String, nullable=True)
+    email = db.Column(db.String, nullable=True)
+    assunto = db.Column(db.String, nullable=True)
+    mensagem = db.Column(db.Text, nullable=True)
+    respondido = db.Column(db.Boolean, default=False)
+
+"""
+nullable = True
+pode ser null(vazio no banco)
+não é obrigatório
+
+nullable = False
+não pode ser NULL
+é obrigatorio preencher
+"""
+

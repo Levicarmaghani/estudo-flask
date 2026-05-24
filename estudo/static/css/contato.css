@@ -1,0 +1,156 @@
+
+/* =========================
+   BACKGROUND DA PÁGINA
+========================= */
+body{
+    background-image: url('../img/tecnologia2.jpg');
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    height: 90vh;
+    margin: 0;
+}
+
+
+/* =========================
+   CAMPOS DO FORMULÁRIO
+========================= */
+label{
+    color:aliceblue;
+    font-size: 18px;
+}
+
+.dados{
+    width: 100%;
+    padding: 15px 20px;
+
+    /*30.97% = Isso é quão clara ou escura a cor é
+    vai de 0%-preto total a 100%-branco total
+    75.42 Controla o eixo verde - vermelho negativo=verde positivo=vermelho
+    -103.32 Controla o eixo azul amarelo = negativo= azul positivo=amarelo 
+    -109.32 bem negativo=azul forte*/
+    background-color: lab(30.97% 75.42 -103.32 / 0.339);
+    color: black;
+
+    border: 2px solid rgba(255, 255, 255, 0);
+    border-radius: 12px;
+
+    font-size: 18px;
+    outline: none;
+
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.dados::placeholder{
+    color: rgba(255,255,255,0.7);
+}
+
+.dados:focus{
+    border-color: #2563eb;
+    box-shadow: 0px 0px 15px #2563eb;
+    background-color: rgba(255, 255, 255, 0.984);
+}
+
+
+/* =========================
+   BOTÃO PADRÃO (submit)
+========================= */
+button{
+    background-color: #2563eb;
+    color: white;
+
+    border: none;
+    padding: 15px 35px;
+
+    font-size: 18px;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+/* =========================
+   BOTÃO VOLTAR AO MENU
+========================= */
+.voltar{
+    display: inline-block;
+
+    margin-top: 25px;
+    padding: 14px 30px;
+
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    transition: 0.3s;
+
+    box-shadow: 0px 4px 15px rgba(37, 99, 235, 0.4);
+}
+
+.voltar:hover{
+    transform: translateY(-3px);
+
+    background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+
+    box-shadow: 0px 6px 20px rgba(37, 99, 235, 0.6);
+}
+
+.voltar:active{
+    transform: scale(0.97);
+}
+
+
+/* =========================
+   TÍTULO (CADASTRAR / TEXTO PRINCIPAL)
+========================= */
+button{
+    background-color: #2563eb;
+    color: white;
+
+    border: none;
+    padding: 10px 20px;
+
+    font-size: 16px;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+/* =========================
+   ANIMAÇÃO DO BRILHO
+========================= */
+/*@keyframes faz o texto piscar/brilhar mudando o text-shadpw ap londo tempo */
+@keyframes brilho{
+    /*from = significa começo da animação*/
+    from{
+        /*Aplicando sombra no texto isso cria o efeito de 'luz/brilho*/
+        text-shadow:
+            /*0px = deslocamento horizontal (sem mover para lados)*/
+            /*0px = deslocamento vertical (sem subir/descer*/
+            /*10px = desfoque (blur) pequeno*/
+            /*rgba(255,255,255,0.7),= cor branca com 70% de tranparencia*/
+            0px 0px 10px rgba(255,255,255,0.7),
+            /*Segunda sombra 20px de desfoque(mais espalhado)*/
+            0px 0px 20px #2563eb;
+    }
+
+    /*fim da animação*/
+    to{
+        /**/
+        text-shadow:
+            0px 0px 20px white,
+            0px 0px 40px #2563eb,
+            0px 0px 60px #2563eb;
+    }
+}

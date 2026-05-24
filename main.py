@@ -7,3 +7,4 @@ app = create_app()
 # ligando o servidor flaskn
 if __name__ == '__main__':
     app.run(debug=True)
+    

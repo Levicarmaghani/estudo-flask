@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudo Flask - Camp Code</title>
+   
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+   
 </head>
 <body>
-    <div>
-        <h3>Estudo Flask</h3>
-        <h5>@Campcodebrasil</h5>
-    </div>
+    <main>
+        <section>
+            <div>
+                <h1 class="titulo">Estudo Flask</h1>
+                <h3 class="texto">@Campcodebrasil</h3>
+            </div>
 
-    <div>
-        <p>Bem vindos a aula de Flask</p>
+            <div>
+                <p class="texto">Bem vindo á aula Flask</p>
+            </div>
 
-        
-        <a href="{{ url_for('main.novapag') }}">link para nova pagina</a>
-    </div>
+            <div>
+                <p class="texto">Clique aqui para se  Cadastrar</p>
+                <a href="{{url_for('main.contato') }}"><button>Cadastrar</button></a>
+            
+                <p class="texto">Lista Contatos</p>
+                <a href="{{url_for('main.contato_lista') }}"><button>Lista</button></a>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudo Flask - Camp Code</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    
+
+</head>
+<body>
+
+    <div class="container mt-5">
+<!--==============================================================================-->
+<!--===========Formulário Post==================-->
+        <div class="row">
+            <h3 class="texto">Lista de Contato</h3>
+
+            <form method="get" class="row">
+                <div class="col-9">
+                    <input type="text" name="pesquisa" class="form-control" >
+                </div>
+
+                <div class="col-3">
+                    <button class="btn btn-primary">Pesquisar</button>
+                </div>
+            </form>
+            
+        </div>
+
+        <!--==============Lista Contatos===============================-->
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-Mail</th>
+                        <th>Assunto</th>
+                        <th>Respondido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in context['dados'] %}
+                    <tr>
+                        <td>{{linha.nome}}</td>
+                        <td>{{linha.email}}</td>
+                        <td>{{linha.assunto}}</td>
+                        <td>{{linha.respondido}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+<!--=======================================Java Script===================================-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
