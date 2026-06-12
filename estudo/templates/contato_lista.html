@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudo Flask - Camp Code</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    
-
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 
     <div class="container mt-5">
 <!--==============================================================================-->
@@ -34,7 +21,7 @@
 
         <!--==============Lista Contatos===============================-->
         <div>
-            <table class="table">
+            <table class="table table-hover  table table-bordered">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -49,10 +36,15 @@
                         <td>{{linha.nome}}</td>
                         <td>{{linha.email}}</td>
                         <td>{{linha.assunto}}</td>
-                        <td>{{linha.respondido}}</td>
+                        <td>
+                            {% if linha.respondido == 1 %}
+                                Sim
+                            {% else %}
+                                Não
+                            {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
-
                 </tbody>
             </table>
 
@@ -60,9 +52,4 @@
 
 
     </div>
-<!--=======================================Java Script===================================-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-
-</html>
+{% endblock %}

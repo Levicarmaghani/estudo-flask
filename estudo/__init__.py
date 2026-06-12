@@ -5,6 +5,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 # Importando extensão do Migrate
 from flask_migrate import Migrate
+#Biblioteca para buscar arquivos de ambientes
+import os
+# Bilioteca sigiliosa
+from dotenv import load_dotenv
+
+load_dotenv('.env')
+
 
 # Criando objetos de migração
 db = SQLAlchemy()
@@ -22,10 +29,11 @@ def create_app():
     # Configuração
     # Define qual banco vai ser utilizado, nesse caso o sqlite, e o nome do arquivo do banco de dados
     # Aqui está o arquivo do banco de dados, ele vai ser criado na raiz do projeto
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    
     # Token de segurança 
-    app.config['SECRET_KEY'] = 'LFNGLIREANG-OPIEANHBGA!!IN'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     # Inicializar extensões
     # Inicialização de apllicação aqui ligamos o banco db ao nosso app que é o flask

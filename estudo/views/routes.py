@@ -24,6 +24,7 @@ def homepage():
     # Outra froma de passar informação e com um dicionario utilizando o context
 
     context = {
+
         'usuario': usuario,
         'idade' : idade
     }
@@ -43,18 +44,18 @@ def contato ():
 # Rotas para listas
 @main.route('/contatoLista')
 def contato_lista():
+    
     context = {}
-
     pesquisa = request.args.get('pesquisa', '')
     dados = Contato.query.order_by(Contato.nome)
 
     if pesquisa != '':
         dados = dados.filter_by(nome=pesquisa)
-    
-    context = {'dados': dados.all()}
-
-    
-    return render_template('contato_lista.html', context=context)
+        context = dados.all()
+        
+    return render_template('contato_lista.html',
+                        context = context,
+                        pesquisa = pesquisa)
 
 
 
