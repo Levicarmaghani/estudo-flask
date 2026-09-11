@@ -1,41 +1,50 @@
 {% extends 'base.html' %}
 
-{% block css%}
+{% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/contato.css') }}">
-{% endblock%}
+{% endblock %}
+
 {% block content %}
-    <div class="container mt-5">
-<!--==============================================================================-->
-<!--===========Formulário Post==================-->
-        <div class="row">
-            <h3 class="texto">Envio de Contato</h3>
-        </div>
-        
-        <form action="" method="post">
-            {{form.csrf_token}}
+<div class="d-flex justify-content-end gap-2">
+
+    <a href="{{ url_for('main.contato_lista') }}" class="btn btn-primary">
+        Tabela de Contato
+    </a>
+
+    <a href="{{ url_for('main.logout') }}"
+     class="btn btn-primary"
+     onclick="return confirm('Tem certeza que deseja sair?')">
+        Sair
+    </a>
+
+</div>
 
 
-            {{form.nome.label() }}
-            {{form.nome(class="dados") }}
+<div class="container mt-3">
 
-            {{form.email.label() }}
-            {{form.email(class="dados") }}
-
-            {{form.assunto.label() }}
-            {{form.assunto(class="dados")}}
-
-            {{form.mensagem.label() }}
-            {{form.mensagem (class="dados")}}
-            
-            {{form.btnSubmit(class="btn btn-primary border-0")  }}
-         </form>
-
-         <a href="javascript:history.back"></a>
-
-        <a href="{{ url_for('main.homepage') }}" class="voltar">
-            ⬅ Voltar ao Menu
-        </a>
-
-
+    <!--============================================================================-->
+    <!--========================== Formulário =======================================-->
+    <div class="row">
+        <h3 class="texto">Envio de Contato</h3>
     </div>
+
+    <form action="" method="post">
+        {{ form.csrf_token }}
+
+        {{ form.nome.label() }}
+        {{ form.nome(class="dados") }}
+
+        {{ form.email.label() }}
+        {{ form.email(class="dados") }}
+
+        {{ form.assunto.label() }}
+        {{ form.assunto(class="dados") }}
+
+        {{ form.mensagem.label() }}
+        {{ form.mensagem(class="dados mb-2") }}
+
+        {{ form.btnSubmit(class="btn btn-primary mb-2") }}
+    </form>
+</div>
+
 {% endblock %}

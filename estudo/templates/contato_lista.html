@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="d-flex justify-content-end gap-2">
+    <a href="{{ url_for('main.contato') }}" class="btn btn-primary">Home</a>
+
+    <a href="{{ url_for('main.logout') }}"
+     class="btn btn-primary"
+     onclick="return confirm('Tem certeza que deseja sair?')">
+     Sair
+    </a>
+</div>
+
     <div class="container mt-5">
 <!--==============================================================================-->
 <!--===========Formulário Post==================-->
@@ -27,28 +37,30 @@
                         <th>Nome</th>
                         <th>E-Mail</th>
                         <th>Assunto</th>
-                        <th>Respondido</th>
+                        <th>Mensagem</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for linha in context['dados'] %}
+                    {% for linha in context %}
                     <tr>
                         <td>{{linha.nome}}</td>
                         <td>{{linha.email}}</td>
                         <td>{{linha.assunto}}</td>
                         <td>
-                            {% if linha.respondido == 1 %}
-                                Sim
-                            {% else %}
-                                Não
-                            {% endif %}
+                            <a href="{{ url_for('main.ver_mensagem', id=linha.id) }}"
+                                class="btn btn-primary btn-sm">
+                                Ver mensagem
+                            </a>
                         </td>
+                            
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
         </div>
+
+ 
 
 
     </div>

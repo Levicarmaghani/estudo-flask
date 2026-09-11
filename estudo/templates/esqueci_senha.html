@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Recuperação de senha</h1>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        {{ form.email.label }}
+        {{ form.email() }}
+
+        {{ form.submit() }}
+    </form>
+
+{% endblock %}
+

@@ -1,28 +1,178 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
+    <!-- Define o conjunto de caracteres da página -->
     <meta charset="UTF-8">
+
+    <!-- Deixa a página responsiva em celulares e telas diferentes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título que aparece na aba do navegador -->
     <title>Estudo Flask - Camp Code</title>
-   
-    
-    <!-- Bootstrap -->
+
+
+    <!-- Carrega o CSS do Bootstrap -->
+    <!-- Responsável pelos estilos: botões, cards, alertas, grids etc. -->
     <link 
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" 
         rel="stylesheet">
 
-        {% block css %}
-        {% endblock%}
+
+    <!-- Bloco para cada página adicionar seu próprio CSS -->
+    <!-- Exemplo: login.css, cadastro.css -->
+    {% block css %}
+    {% endblock %}
+
 
 </head>
 
-   
-</head>
+
 <body>
-    {% block content  %} {% endblock %}
-    
 
+    <!-- ================= MENSAGENS FLASH ================= -->
+
+    <!-- Container do Bootstrap para alinhar a mensagem na página -->
+    <div class="container mt-3">
+
+        <!--
+            Pega mensagens enviadas pelo Flask através do flash()
+
+            Exemplo na rota:
+            flash("Usuário cadastrado!", "success")
+
+            with_categories=True permite pegar:
+            - categoria (success, danger, info...)
+            - mensagem (texto)
+        -->
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+
+
+            <!-- Verifica se existe alguma mensagem -->
+            {% if mensagens %}
+
+
+                <!-- Percorre todas as mensagens encontradas -->
+                {% for categoria, mensagem in mensagens %}
+
+
+                    <!--
+                        Cria o alerta do Bootstrap
+
+                        alert               = cria uma caixa de alerta
+                        alert-{{categoria}} = muda a cor conforme a categoria
+                        fade                = animação
+                        show                = deixa visível
+                    -->
+                    <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+
+
+                        <!-- Mostra o texto enviado pelo flash() -->
+                        {{ mensagem }}
+
+
+                        <!-- Botão X para fechar manualmente a mensagem -->
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert">
+                        </button>
+
+
+                    </div>
+
+
+                {% endfor %}
+
+            {% endif %}
+
+
+        <!-- Finaliza o bloco with -->
+        {% endwith %}
+
+    </div>
+
+    <!-- ================= CONTEÚDO DAS PÁGINAS ================= -->
+
+
+    <!--
+        Tudo que estiver dentro do block content
+        vem das páginas filhas.
+
+        Exemplo:
+
+        login.html
+        cadastro.html
+        home.html
+    -->
+    <section class="container-fluid mt">
+
+        {% block content %}
+        {% endblock %}
+
+
+    </section>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+
+    <!--
+        Carrega o JavaScript criado por você.
+
+        Arquivo:
+        static/js/script.js
+    -->
     <script src="{{url_for('static', filename='js/script.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
+
+    <!--
+        Carrega o JavaScript do Bootstrap.
+
+        Necessário para:
+        - botão fechar alerta
+        - modal
+        - menu responsivo
+        - componentes interativos
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <!--
+        Fecha automaticamente as mensagens flash
+
+        Funcionamento:
+
+        1 - Procura todos os elementos com classe .alert
+        2 - Espera 3 segundos
+        3 - Fecha usando o componente Alert do Bootstrap
+    -->
+    <script>
+
+        setTimeout(function(){
+
+
+            // Procura todos os alertas existentes na página
+            const alerts = document.querySelectorAll('.alert');
+
+
+            // Passa por cada alerta encontrado
+            alerts.forEach(function(alert){
+
+
+                // Fecha o alerta usando o Bootstrap
+                bootstrap.Alert.getOrCreateInstance(alert).close();
+
+
+            });
+
+
+        },3000); // 3000 milissegundos = 3 segundos
+
+
+    </script>
+
+
 </body>
+
 </html>

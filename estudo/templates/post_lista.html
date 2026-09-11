@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-end gap-2">
+    <a href="{{ url_for('main.contato') }}" class="btn btn-primary">Home</a>
+
+    <a href="{{ url_for('main.logout') }}"
+     class="btn btn-primary"
+     onclick="return confirm('Tem certeza que deseja sair?')">
+     Sair
+    </a>
+</div>
+
+    <div class="container mt-5">
+<!--==============================================================================-->
+
+
+        <!--==============Lista Contatos===============================-->
+        <div>
+            <table class="table table-hover  table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mensagem</th>
+                        <th>Nome</th>
+        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in posts %}
+                    <tr>
+                        <td>{{linha.msg_resumo() }}</td>
+                        <td>{{linha.user.nome}}</td>
+                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        
+    </div>
+{% endblock %}
+
+ 
+

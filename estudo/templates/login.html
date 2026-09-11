@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<main class="container py-3">
+
+    <!-- Título -->
+    <div class="login-card">
+		<p class="descricao">
+			Faça login para acessar sua tabela de contato
+		</p>
+
+	</div>
+
+    <!-- Login -->
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-1 col-lg-5">
+
+            <div class="card bg-info shadow-lg rounded-4 border-0">
+
+                <div class="card-body p-5">
+
+                    <!-- Ícone -->
+                    <div class="text-center mb-4">
+                        <i class="bi bi-person-circle display-2 text-dark"></i>
+                    </div>
+
+                    <!-- Título -->
+                    <h2 class="text-center fw-bold mb-4">
+                        Login
+                    </h2>
+
+                    <form method="POST">
+
+                        {{ form.hidden_tag() }}
+
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            {{ form.email.label(class="form-label fw-semibold") }}
+                            {{ form.email(class="form-control form-control-lg") }}
+                        </div>
+
+                        <!-- Senha -->
+                        <div class="mb-3">
+                            {{ form.senha.label(class="form-label fw-semibold") }}
+                            {{ form.senha(class="form-control form-control-lg") }}
+                        </div>
+
+                        <!-- Lembrar -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="lembrar">
+
+                            <label class="form-check-label" for="lembrar">
+                                Lembrar de mim
+                            </label>
+                        </div>
+
+                        <!-- Botão -->
+                        <div class="d-grid mb-3">
+                            {{ form.submit(class="btn btn-dark btn-lg rounded-pill") }}
+                        </div>
+
+                        <!-- Cadastro -->
+                        <p class="text-center mb-0">
+                            Não possui conta?
+                            
+                        {% if current_user.is_authenticated %}
+                        <span class="btn btn-primary">
+                            {{ current_user.nome}}
+                            {{ current_user.sobrenome }}
+                        </span>
+
+                        {% else %} 
+                        <a href="{{ url_for('main.cadastro_usuario') }}"
+                        class="text-decoration-none fw-bold text-dark">
+                        Cadastre-se
+                        </a>
+                            {% endif %}
+
+                        <p>Esqueci a senha</p>
+                        <a href="{{ url_for('main.esqueci_senha') }}"
+                        class="text-decoration-none fw-bold text-dark">
+                        clica aqui
+                        </a>
+                        
+                        
+                        
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+
+{% endblock %}
