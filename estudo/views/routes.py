@@ -40,7 +40,8 @@ from estudo.forms.auth_forms import (
     CadastroForm,
     LoginForm,
     RecuperarSenhaForm,
-    RedefinirSenhaForm
+    RedefinirSenhaForm,
+    ExcluirRegistroForm
 )
 
 
@@ -117,7 +118,7 @@ def homepage():
         usuario = form.autenticar()
 
         if usuario:
-            login_user(usuario)
+            login_user(usuario, remember=False)
             return redirect(url_for('main.contato'))
 
         flash ("E-mail ou senha incorretos", 'danger')
@@ -229,7 +230,7 @@ def post_lista():
 @main.route("/ver-mensagem/<int:id>")
 @login_required
 def ver_mensagem(id):
-    mensagem = Contato.query.filter_by(id=id, user_id=current_user.id).first_or_404
+    mensagem = Contato.query.filter_by(id=id, user_id=current_user.id).first_or_404()
 
     return render_template('ver_mensagem.html', mensagem=mensagem)
 
@@ -244,21 +245,35 @@ def esqueci_senha():
     # O Formulário foi enviado e passou todas as validações
     if form.validate_on_submit():
 
-        # Buscar no banco
+        # Buscar no banco o email digitado, 
         usuario = User.query.filter_by(email=form.email.data).first()
+        # Se existir usuario com email do banco 
         if usuario:
+            # Código secreto aleatório para recuperação de senha
             token = secrets.token_urlsafe(32)
+            # Pega horário atual e adiciona 15 minutos
             expiracao = datetime.utcnow() + timedelta(minutes=15)
 
+            #Criando objeto da Classe (PasswordReset)
             reset = PasswordReset(
                 token = token,
                 expiracao = expiracao,
+                # Pegando o ID do usuário que foi encontrado pelo e-mail digitado no formulário
                 user_id = usuario.id
             )
             db.session.add(reset)
             db.session.commit()
 
+
+            # Cria link de recuperação de senha, será o link enviado pelo email 
+            #'main.recuperar_senha"= rota que receberá o token
+            # token=token envia o token pela URL, no email, depois pegamos esse token como no link e colocamos como parametro na função
+            # _external=True = gera a UTL completa
             link = url_for("main.recuperar_senha",  token=token, _external=True)
+
+            # Envia o e-mail através do Resend
+           # RESEMD = serviços de envio de e-mail na nuvem
+           # O Flask envia os dados pela API e o Resend realiza o envio 
             resend.Emails.send({
                 "from": "onboarding@resend.dev",
                 "to": usuario.email,
@@ -287,10 +302,11 @@ def email_enviado():
 #-------------------------------------------------------------------
 #============================Recuperar senha========================
 #---------------------------------------------------------------------
+# O token recebido pela URL é passado como parâmetro para a função
 @main.route("/recuperar_senha/<token>", methods=['GET', 'POST'])
 def recuperar_senha(token):
 
-    # Busca o token no banco
+    # Busca o token no banco igual ao token que no parametro da função 
     reset = PasswordReset.query.filter_by(token=token).first()
 
     # Verifica se o token existe
@@ -347,6 +363,27 @@ def teste_email():
     mail.send(mensagem)
 
     return "E-mail enviado com sucesso!"
+
+
+
+#-------------------------------------------------------------------
+#============================EXCLUIR REGISTRO========================
+#--------------------------------------------------------------------
+@main.route("/excluir_contato/<int:id>")
+@login_required
+def excluir_contato(id):
+
+    contato = Contato.query.get_or_404(id)
+
+    db.session.delete(contato)
+    db.session.commit()
+
+    flash("Contato excluído com sucesso!", "success")
+
+    return redirect(url_for("main.contato_lista"))
+
+    
+        
     
 
 

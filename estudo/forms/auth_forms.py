@@ -4,7 +4,8 @@ from wtforms import (
     StringField,
     EmailField,
     PasswordField,
-    SubmitField
+    SubmitField,
+    SelectField
 )
 
 from wtforms.validators import (
@@ -86,5 +87,12 @@ class RedefinirSenhaForm(FlaskForm):
     confirmar_senha = PasswordField("Confirmar Senha", validators=[DataRequired(),EqualTo("senha", message="As senha precisam ser iguais.")])
     submit = SubmitField("Redefinir senha")
 
+#======================================================================================
+#==============================BOTÃO PARA EXCLUIR ===================================
+#======================================================================================
+
+class ExcluirRegistroForm(FlaskForm):
+    contato_id = SelectField("Selecione um Registro", coerce=int, validators=[DataRequired(message="Selecione um registro para excluir.")])
+    excluir = SubmitField("Excluir")
 
 

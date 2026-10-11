@@ -31,7 +31,7 @@ class Contato(db.Model):
     respondido = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-# Relação de tabela com a tabela User
+# Relação de tabela com a tabela User 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     data_criacao = db.Column(db.DateTime, default=datetime.utcnow)

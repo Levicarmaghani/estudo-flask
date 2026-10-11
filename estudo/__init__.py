@@ -30,7 +30,7 @@ from flask_bcrypt import Bcrypt
 # Carregar variaveis de ambiente que estão dentro do arquivo .env
 load_dotenv('.env')
 
-#Reuperando chave secreta do .env
+#Recuperando chave secreta do .env
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 # configurando a API do Resend
 resend.api_key = RESEND_API_KEY
@@ -88,6 +88,12 @@ def create_app():
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+
+    #===================================================================================
+    # SESSÃO TERMINA QUANDO O NAVEGADOR FOR FECHADO
+    #==================================================================================
+    app.config['SESSION_PERMANENT'] = False
+    
 
     # Inicializar extensões
     # Inicialização de apllicação aqui ligamos o banco db ao nosso app que é o flask
